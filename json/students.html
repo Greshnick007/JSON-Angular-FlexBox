@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="studentsgr">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Stanislav Sivinskiy">
+    <title>JSON test</title>
+    <link rel="stylesheet" href="style-main.css" media="screen">
+ <script src="angular.min.js"></script>
+ <script>
+  var studentsgr = angular.module('studentsgr', []);
+  studentsgr.controller('studentscont', function ($scope, $http){
+    $http.get('file.json').success(function(data) {
+      $scope.studentsd = data;
+	  });
+  });
+ </script>
+</head>
+<body ng-controller="studentscont">
+<p id="name_spec"></p>
+<p id="name_group"></p>
+<div class="group_people">
+		<div class="people" ng-repeat="students in studentsd.people">
+			<p>{{students.name}}</p>
+			<img src='{{students.foto}}' />
+			<p ng-repeat="data in studentsd.people[$index].data">{{data.location}}</p>
+            <p ng-repeat="data in studentsd.people[$index].data">{{data.hobby}}</p>
+    </div>
+</div>
+</body>
+</html>
